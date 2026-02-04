@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>C Street Plaza</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --primary: #1f4b7a;
+      --accent: #f4b41a;
+      --light: #f5f7fa;
+      --dark: #1b2430;
+      --text: #333;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      background: #ffffff;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary), #0b2744);
+      color: #fff;
+      padding: 1.2rem 8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .logo {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 1.4rem;
+      font-size: 0.95rem;
+    }
+    nav a:hover {
+      color: var(--accent);
+    }
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 3rem 8%;
+      background: var(--light);
+      align-items: center;
+      gap: 2rem;
+    }
+    .hero-text {
+      flex: 1 1 280px;
+    }
+    .hero-text h1 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .hero-text p {
+      margin-bottom: 1.5rem;
+      max-width: 32rem;
+    }
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .btn {
+      display: inline-block;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      border: 2px solid var(--primary);
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #16375a;
+      border-color: #16375a;
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+    }
+    .btn-outline:hover {
+      background: #e1e7f0;
+    }
+    .hero-image {
+      flex: 1 1 260px;
+      min-height: 220px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #dfe7f3, #c1d4ea);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-weight: 600;
+      text-align: center;
+      padding: 1.5rem;
+    }
+    section {
+      padding: 3rem 8%;
+    }
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .two-column {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.5fr);
+      gap: 2rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .feature-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+      border: 1px solid #e3e7ee;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      color: var(--dark);
+    }
+    .availability-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+    .availability-table th,
+    .availability-table td {
+      border: 1px solid #e0e4ec;
+      padding: 0.6rem 0.5rem;
+      text-align: left;
+    }
+    .availability-table th {
+      background: #f0f3f9;
+      font-weight: 600;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+    .badge-available {
+      background: #e3f7e8;
+      color: #1f7a3b;
+    }
+    .badge-leased {
+      background: #f7e3e3;
+      color: #a12b2b;
+    }
+    .amenities-list {
+      columns: 2;
+      column-gap: 2rem;
+      margin-top: 0.5rem;
+    }
+    .amenities-list li {
+      margin-bottom: 0.3rem;
+    }
+    .contact-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #e3e7ee;
+      max-width: 420px;
+    }
+    .contact-card label {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      color: var(--dark);
+    }
+    .contact-card input,
+    .contact-card textarea {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid #ccd2dd;
+      font-size: 0.9rem;
+      margin-bottom: 0.75rem;
+    }
+    .contact-card textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .contact-meta {
+      font-size: 0.9rem;
+      margin-top: 0.75rem;
+      color: #555;
+    }
+    footer {
+      background: #0f1b2a;
+      color: #cfd6e3;
+      padding: 1.5rem 8%;
+      font-size: 0.85rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    footer a {
+      color: #cfd6e3;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 800px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+      .amenities-list {
+        columns: 1;
+      }
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      header nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">C Street Plaza, llc  Executive Suite</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#availability">Availability</a>
+      <a href="#amenities">Amenities</a>
+      <a href="#location">Location</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-text">
+	  
+	    <h1>The smart and affordable way to office professionaly</h1>
+        <p>
+          You're great at what you do, so spend more time doing that, and leave the rest to us!
+        </p>
+        <div class="cta-group">
+          <a href="#availability" class="btn btn-primary">View Available Suites</a>
+          <a href="#contact" class="btn btn-outline">Schedule a Tour</a>
+        </div>
+      </div>
+      <div class="hero-image">
+	          Bright, flexible workspace with secure access and on‑site parking.
+      </div>
+	<div class="hero-slider">
+  <div class="slide active">
+    <img src="images/building-front.jpg" alt="Workspace 1">
+  </div>
+
+</script>
+
+    </section>
+
+    <section id="about">
+      <h2>About the Building</h2>
+      <div class="two-column">
+        <div>
+          <p>
+            C STreet Plaza is modern building with lots of light, windows and ... C Stree offers two-shared conference rooms, shared, affordable copiers, free scannin, a well equiped break room, afforardable tennant..., janoitrial services
+          </p>
+          <div class="features">
+            <div class="feature-card">
+              <h3>Flexible Layouts</h3>
+              <p>Suites from 500–1,000 sq ft, configurable for private offices, open plans, or hybrid setups.</p>
+            </div>
+            <div class="feature-card">
+              <h3>Professional Image</h3>
+              <p>Modern lobby, directory signage, and shared conference space for client meetings.</p>
+            </div>
+            <div class="feature-card">
+              <h3>Easy Access</h3>
+              <p>Close to major routes, transit, and walkable amenities for staff and visitors.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Key Details</h3>
+          <p><strong>Building Size:</strong> 12,000 sq ft</p>
+          <p><strong>Floors:</strong> 2</p>
+          <p><strong>Parking:</strong> On‑site surface parking</p>
+          <p><strong>Lease Type:</strong> Full‑service / modified gross</p>
+          <p><strong>Ideal For:</strong> Professional services, tech, medical, creative studios, and non‑profits.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="availability">
+      <h2>Current Availability</h2>
+      <p>Contact us for the most up‑to‑date availability and build‑out options.</p>
+      <table class="availability-table">
+        <thead>
+          <tr>
+            <th>Suite</th>
+            <th>Floor</th>
+            <th>Size (sq ft)</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Suite 105</td>
+            <td>1</td>
+            <td>950</td>
+            <td><span class="badge badge-available">Available</span></td>
+            <td>Reception, two offices, open work area.</td>
+          </tr>
+          <tr>
+            <td>Suite 106-107</td>
+            <td>1</td>
+            <td>1,800</td>
+            <td><span class="badge badge-available">Available</span></td>
+            <td>Corner suite with glass conference room.</td>
+          </tr>
+          <tr>
+            <td>Suite 112</td>
+            <td>1</td>
+            <td>3,200</td>
+            <td><span class="badge badge-available">Available</span></td>
+            <td>Join waitlist for future openings.</td>
+			          <tr>
+            <td>Suite 114</td>
+            <td>1</td>
+            <td>1,800</td>
+            <td><span class="badge badge-available">Available</span></td>
+            <td>Corner suite with glass conference room.</td>
+          </tr>
+		            <tr>
+            <td>Virtual</td>
+            <td>1</td>
+            <td>1,800</td>
+            <td><span class="badge badge-available">Available</span></td>
+            <td>Corner suite with glass conference room.</td>
+          </tr>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="amenities">
+      <h2>Building Amenities</h2>
+      <ul class="amenities-list">
+        <li>High‑speed fiber internet ready</li>
+        <li>Secure key‑card access</li>
+        <li>On‑site property management</li>
+        <li>Shared conference room</li>
+        <li>24/7 tenant access</li>
+        <li>Modern restrooms on each floor</li>
+        <li>Lobby and exterior signage opportunities</li>
+        <li>Walkable to cafés, restaurants, and banking</li>
+      </ul>
+    </section>
+
+    <section id="location">
+      <h2>Location</h2>
+      <div class="two-column">
+        <div>
+          <p><strong>Address:</strong><br>
+            303 E 16th St<br>
+            Vancouver, WA 98663
+          </p>
+          <p>
+            Conveniently located near major commuter routes and public transit, C Street offers easy access for both staff and clients.
+          </p>
+          <p>
+            Nearby amenities include cafés, restaurants, fitness centers, and hotels—all within a short walk or drive.
+          </p>
+        </div>
+        <div>
+          <div class="hero-image" style="min-height: 200px;">
+            <iframe
+  width="600"
+  height="450"
+  style="border:0"
+  loading="lazy"
+  allowfullscreen
+  referrerpolicy="no-referrer-when-downgrade"
+  src="https://www.google.com/maps?q=303+E+16th+St,+Vancouver,+WA+98663&output=embed">
+</iframe>
+
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact & Tours</h2>
+      <div class="two-column">
+        <div class="contact-card">
+          <form>
+            <label for="name">Name</label>
+            <input id="name" type="text" placeholder="Your name" />
+
+            <label for="company">Company</label>
+            <input id="company" type="text" placeholder="Your company (optional)" />
+
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="you@example.com" />
+
+            <label for="phone">Phone</label>
+            <input id="phone" type="tel" placeholder="(555) 123‑4567" />
+
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Tell us what kind of space you’re looking for."></textarea>
+
+            <button type="submit" class="btn btn-primary" style="margin-top:0.25rem;">Submit Inquiry</button>
+          </form>
+          <div class="contact-meta">
+            Or contact leasing directly:<br>
+            <strong>Email:</strong> Sparrowwrenlaw@gmail.com<br>
+            <strong>Phone:</strong> (360) 608‑7187
+          </div>
+        </div>
+        <div>
+          <p>
+            We’d love to learn more about your business and help you find the right space. Tours are available by appointment during normal business hours, with virtual walk‑throughs available upon request.
+          </p>
+          <p>
+            Share your ideal move‑in date, space requirements, and any special build‑out needs, and our team will follow up with tailored options.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>© <span id="year"></span> C Street Plaza. All rights reserved.</div>
+    <div><a href="#top">Back to top</a></div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
